@@ -7,13 +7,13 @@
 
 This package provides escaping the components in the MDX, which are missing or not provided.
 
-It is compatible with [MDX][MDX].
+It is compatible with [MDX][MDX] version 3.
 
-**This plugin is a [recma][recma] plugin that transforms the ESAST which stands for Ecma Script Abstract Syntax Tree (AST) that MDX uses..**
+**This plugin is a [recma][recma] plugin that transforms the ESAST which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the MDX.**
 
 ## When should I use this?
 
-This plugin is useful if you want to escape the components you did not provide in MDX. You don't receive an error** for missing / not provided components since the `recma-escape-missing-components` sets the default value `() => null` for the components.**
+**This plugin is useful if you want to escape the components you did not provide in MDX.** You don't receive an error for missing / not provided components since the `recma-escape-missing-components` sets the default value `() => null` for the components.
 
 ## Installation
 
@@ -45,7 +45,7 @@ And our module, `example.js`, looks as follows:
 
 ```javascript
 import { read } from "to-vfile";
-import { compile, run } from "@mdx-js/mdx";
+import { compile } from "@mdx-js/mdx";
 import recmaEscapeMissingComponents from "recma-escape-missing-components";
 
 main();
@@ -61,7 +61,7 @@ async function main() {
 }
 ```
 
-Now, running `node example.js` produces the `compiled source` which contains the statement below:\
+Now, running `node example.js` produces the `compiled source` which contains the statement below:
 
 ```text
 {Component1 = () => null, Component2 = () => null} = _components;
@@ -86,6 +86,8 @@ Basically, the `recma-escape-missing-components`;
 ## Options
 
 ```typescript
+type TestFunction = (componentName: string) => boolean | undefined | null;
+
 function RecmaEscapeMissingComponents(test?: string | string[] | TestFunction)
 ```
 
@@ -99,11 +101,11 @@ function RecmaEscapeMissingComponents(test?: string | string[] | TestFunction)
 ## Examples:
 
 ```markdown
-# Hi.
+# Hi
 
 <Component1 />
 
-Wellcome.
+Wellcome
 
 <Component2 />
 ```
@@ -148,7 +150,7 @@ is going to produce the compiled source has the statement for only the `Componen
 
 ## Syntax tree
 
-This plugin only modifies the esast (ecma script abstract syntax tree) as explained.
+This plugin only modifies the ESAST (Ecma Script Abstract Syntax Tree) as explained.
 
 ## Types
 
@@ -168,7 +170,7 @@ Use of `recma-escape-missing-components` does not involve user content so there 
 
 ### Keywords
 
-[unified][unifiednpm] [recma][recmanpm] [recma-plugin][recmapluginnpm] [esast][esastnpm] [MDX][MDXnpm] [recma escape missing components][recmaEMCnpm]
+[unified][unifiednpm] [recma][recmanpm] [recma-plugin][recmapluginnpm] [esast][esastnpm] [MDX][MDXnpm]
 
 [unified]: https://github.com/unifiedjs/unified
 [unifiednpm]: https://www.npmjs.com/search?q=keywords:unified
