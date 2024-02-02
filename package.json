@@ -1,6 +1,6 @@
 {
   "name": "recma-escape-missing-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Recma plugin to set the default value `() => null` for the Components in MDX in case of missing or not provided.",
   "type": "module",
   "exports": "./dist/esm/index.js",
