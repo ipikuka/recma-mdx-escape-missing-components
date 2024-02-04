@@ -39,8 +39,10 @@ describe("with the plugin (no option)", () => {
       recmaPlugins: [recmaEscapeMissingComponents],
     });
 
+    expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
+
     expect(String(compiledSource)).toContain(
-      "{Component1 = () => null, Component2 = () => null} = _components;",
+      "{Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;",
     );
   });
 });
@@ -62,8 +64,10 @@ describe("with the plugin (has `test` option)", () => {
       recmaPlugins: [[recmaEscapeMissingComponents, "Component1"]],
     });
 
+    expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
+
     expect(String(compiledSource)).toContain(
-      "{Component1 = () => null, Component2} = _components;",
+      "{Component1 = _EmptyComponent, Component2} = _components;",
     );
   });
 
@@ -83,8 +87,10 @@ describe("with the plugin (has `test` option)", () => {
       recmaPlugins: [[recmaEscapeMissingComponents, ["Component1"]]],
     });
 
+    expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
+
     expect(String(compiledSource)).toContain(
-      "{Component1 = () => null, Component2} = _components;",
+      "{Component1 = _EmptyComponent, Component2} = _components;",
     );
   });
 
@@ -106,8 +112,10 @@ describe("with the plugin (has `test` option)", () => {
       ],
     });
 
+    expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
+
     expect(String(compiledSource)).toContain(
-      "{Component1, Component2 = () => null} = _components;",
+      "{Component1, Component2 = _EmptyComponent} = _components;",
     );
   });
 });

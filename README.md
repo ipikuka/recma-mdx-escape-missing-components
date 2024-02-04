@@ -63,25 +63,38 @@ async function main() {
 
 Now, running `node example.js` produces the `compiled source` which contains the statement below:
 
-```text
-{Component1 = () => null, Component2 = () => null} = _components;
+```js
+const _EmptyComponent = () => null;
+function _createMdxContent(props) {
+  ...
+  const {Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;
+  ...
+}
 ```
 
-Without the `recma-escape-missing-components`, you’d get the statement below:
+Without the `recma-escape-missing-components`, you’d not get any Empty Component definition and default value for the components:
 
-```text
-{Component1, Component2} = _components;
+```js
+function _createMdxContent(props) {
+  ...
+  const {Component1, Component2} = _components;
+  ...
+}
 ```
 
 Basically, the `recma-escape-missing-components`;
+
+**inserts the Empty Component definition into the code above the function `_createMdxContent(props){}`**
+
+`const _EmptyComponent = () => null;`
 
 **looks for a declaration statement in an object pattern initiated by the `_components`**
 
 `const {Component1, Component2} = _components;`
 
-**converts it as the destructed properties (Components) having a default value `() => null`**
+**converts it as the destructed properties (Components) having a default value `_EmptyComponent`**
 
-`const {Component1 = () => null, Component2 = () => null} = _components;`
+`const {Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;`
 
 ## Options
 
@@ -118,7 +131,7 @@ use(RecmaEscapeMissingComponents);
 
 is going to produce the compiled source has the statement for all components have the default value:
 
-`const {Component1 = () => null, Component2 = () => null} = _components;`
+`const {Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;`
 
 #### With the `test` option (string)
 
@@ -128,7 +141,7 @@ use(RecmaEscapeMissingComponents, "Component1");
 
 is going to produce the compiled source has the statement for only the `Component1` has the default value:
 
-`const {Component1 = () => null, Component2} = _components;`
+`const {Component1 = _EmptyComponent, Component2} = _components;`
 
 #### With the `test` option (string array)
 
@@ -137,7 +150,7 @@ use(RecmaEscapeMissingComponents, ["Component1"]);
 ```
 is going to produce the compiled source has the statement for only the `Component1` has the default value:
 
-`const {Component1 = () => null, Component2} = _components;`
+`const {Component1 = _EmptyComponent, Component2} = _components;`
 
 #### With the `test` option (function)
 
@@ -146,7 +159,7 @@ use(RecmaEscapeMissingComponents, ((name) => name.endsWith("2")) as TestFunction
 ```
 is going to produce the compiled source has the statement for only the `Component2` has the default value:
 
-`const {Component1, Component2 = () => null} = _components;`
+`const {Component1, Component2 = _EmptyComponent} = _components;`
 
 ## Syntax tree
 
