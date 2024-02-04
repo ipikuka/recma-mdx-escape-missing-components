@@ -1,4 +1,4 @@
-import { CONTINUE, visit } from "estree-util-visit";
+import { CONTINUE, EXIT, visit } from "estree-util-visit";
 import { type Node } from "estree";
 
 export type TestFunction = (componentName: string) => boolean | undefined | null;
@@ -14,6 +14,41 @@ function passTest(test: string | string[] | TestFunction | undefined, componentN
 }
 
 /**
+ *
+ * "const _EmptyComponent = () => null;"
+ *
+ * @returns an estree node for the statement above
+ *
+ */
+
+function emptyComponent(): Node {
+  return {
+    type: "VariableDeclaration",
+    declarations: [
+      {
+        type: "VariableDeclarator",
+        id: {
+          type: "Identifier",
+          name: "_EmptyComponent",
+        },
+        init: {
+          type: "ArrowFunctionExpression",
+          expression: true,
+          generator: false,
+          async: false,
+          params: [],
+          body: {
+            type: "Literal",
+            value: null,
+          },
+        },
+      },
+    ],
+    kind: "const",
+  };
+}
+
+/**
  * It is a recma plugin which transforms the esAST / esTree.
  *
  * This recma plugin sets the default value `() => null` for the Components in case them missing or not provided.
@@ -21,13 +56,17 @@ function passTest(test: string | string[] | TestFunction | undefined, componentN
  *
  * The "recma-escape-missing-components" basically:
  *
+ * inserts the Empty Component definition into code
+ *
+ * const _EmptyComponent = () => null;
+ *
  * looks for a declaration statement in an object pattern initiated by the `_components`
  *
  * const { Component1, Component2 } = _components;
  *
- * converts it as the destructed properties (Components) having a default value `() => null`
+ * converts it as the destructed properties (Components) having a default value
  *
- * const { Component1 = () => null, Component2 = () => null } = _components;
+ * const { Component1 = _EmptyComponent, Component2 = _EmptyComponent } = _components;
  *
  * @param [test]
  * if "undefined", all components pass the check
@@ -38,6 +77,24 @@ function passTest(test: string | string[] | TestFunction | undefined, componentN
  */
 export default function RecmaEscapeMissingComponents(test?: string | string[] | TestFunction) {
   return (tree: Node) => {
+    // inserts the Empty Component definition statement above the function _createMdxContent(props){}
+    visit(tree, (node, key, index) => {
+      if (node.type !== "FunctionDeclaration") return CONTINUE;
+
+      if (node.id?.type === "Identifier" && node.id?.name === "_createMdxContent") {
+        if ("body" in tree) {
+          const body = tree["body"] as Node[];
+
+          body.splice(index!, 0, emptyComponent());
+
+          return EXIT;
+        }
+      }
+
+      return CONTINUE;
+    });
+
+    // adds default value for the components
     visit(tree, function (node) {
       if (node.type !== "VariableDeclarator") return CONTINUE;
 
@@ -50,7 +107,7 @@ export default function RecmaEscapeMissingComponents(test?: string | string[] | 
 
           /**
            *
-           * now we ensure here: Variable Declaration Assignment in ObjectPattern
+           * now we ensure here: Variable Declaration and Assignment in ObjectPattern
            *
            * const { Component1, Component2 } = _components;
            *          Property    Property
@@ -64,27 +121,19 @@ export default function RecmaEscapeMissingComponents(test?: string | string[] | 
           ) {
             const componentName = property.key.name;
 
-            if (!passTest(test, componentName)) return;
-
-            // now we set the property value with `() => null`
-            property.value = {
-              type: "AssignmentPattern",
-              left: {
-                type: "Identifier",
-                name: componentName,
-              },
-              right: {
-                type: "ArrowFunctionExpression",
-                expression: true,
-                generator: false,
-                async: false,
-                params: [],
-                body: {
-                  type: "Literal",
-                  value: null,
+            if (passTest(test, componentName)) {
+              property.value = {
+                type: "AssignmentPattern",
+                left: {
+                  type: "Identifier",
+                  name: componentName,
                 },
-              },
-            };
+                right: {
+                  type: "Identifier",
+                  name: "_EmptyComponent",
+                },
+              };
+            }
           }
 
           return CONTINUE;
