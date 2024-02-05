@@ -1,5 +1,5 @@
-import { CONTINUE, EXIT, visit } from "estree-util-visit";
-import { type Node } from "estree";
+import { CONTINUE, EXIT, SKIP, visit } from "estree-util-visit";
+import type { Node, VariableDeclaration } from "estree";
 
 export type TestFunction = (componentName: string) => boolean | undefined | null;
 
@@ -21,7 +21,7 @@ function passTest(test: string | string[] | TestFunction | undefined, componentN
  *
  */
 
-function emptyComponent(): Node {
+function statementOfEmptyComponent(): VariableDeclaration {
   return {
     type: "VariableDeclaration",
     declarations: [
@@ -78,17 +78,19 @@ function emptyComponent(): Node {
 export default function RecmaEscapeMissingComponents(test?: string | string[] | TestFunction) {
   return (tree: Node) => {
     // inserts the Empty Component definition statement above the function _createMdxContent(props){}
-    visit(tree, (node, key, index) => {
-      if (node.type !== "FunctionDeclaration") return CONTINUE;
+    visit(tree, (node, key, index, ancestors) => {
+      if (!index) return;
 
-      if (node.id?.type === "Identifier" && node.id?.name === "_createMdxContent") {
-        if ("body" in tree) {
-          const body = tree["body"] as Node[];
+      if (ancestors.length !== 1) return SKIP;
 
-          body.splice(index!, 0, emptyComponent());
+      if (node.type !== "FunctionDeclaration") return SKIP;
 
-          return EXIT;
-        }
+      if (node.id?.name !== "_createMdxContent") return SKIP;
+
+      if (tree.type === "Program") {
+        tree["body"].splice(index, 0, statementOfEmptyComponent());
+
+        return EXIT;
       }
 
       return CONTINUE;
