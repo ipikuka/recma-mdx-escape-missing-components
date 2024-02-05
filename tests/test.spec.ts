@@ -1,7 +1,7 @@
 import { compile } from "@mdx-js/mdx";
 import dedent from "dedent";
 
-import recmaEscapeMissingComponents, { type TestFunction } from "../src";
+import recmaMdxEscapeMissingComponents, { type TestFunction } from "../src";
 
 describe("without the plugin", () => {
   // ******************************************
@@ -36,7 +36,7 @@ describe("with the plugin (no option)", () => {
     `;
 
     const compiledSource = await compile(source, {
-      recmaPlugins: [recmaEscapeMissingComponents],
+      recmaPlugins: [recmaMdxEscapeMissingComponents],
     });
 
     expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
@@ -61,7 +61,7 @@ describe("with the plugin (has `test` option)", () => {
     `;
 
     const compiledSource = await compile(source, {
-      recmaPlugins: [[recmaEscapeMissingComponents, "Component1"]],
+      recmaPlugins: [[recmaMdxEscapeMissingComponents, "Component1"]],
     });
 
     expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
@@ -84,7 +84,7 @@ describe("with the plugin (has `test` option)", () => {
     `;
 
     const compiledSource = await compile(source, {
-      recmaPlugins: [[recmaEscapeMissingComponents, ["Component1"]]],
+      recmaPlugins: [[recmaMdxEscapeMissingComponents, ["Component1"]]],
     });
 
     expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
@@ -108,7 +108,7 @@ describe("with the plugin (has `test` option)", () => {
 
     const compiledSource = await compile(source, {
       recmaPlugins: [
-        [recmaEscapeMissingComponents, ((name) => name.endsWith("2")) as TestFunction],
+        [recmaMdxEscapeMissingComponents, ((name) => name.endsWith("2")) as TestFunction],
       ],
     });
 

@@ -1,4 +1,4 @@
-# recma-escape-missing-components
+# recma-mdx-escape-missing-components
 
 [![NPM version][npm-image]][npm-url]
 [![Build][github-build]][github-build-url]
@@ -13,20 +13,20 @@ It is compatible with [MDX][MDX] version 3.
 
 ## When should I use this?
 
-**This plugin is useful if you want to escape the components you did not provide in MDX.** You don't receive an error for missing / not provided components since the `recma-escape-missing-components` sets the default value `() => null` for the components.
+**This plugin is useful if you want to escape the components you did not provide in MDX.** You don't receive an error for missing / not provided components since the `recma-mdx-escape-missing-components` sets the default value `() => null` for the components.
 
 ## Installation
 
 This package is suitable for ESM only. In Node.js (version 16+), install with npm:
 
 ```bash
-npm install recma-escape-missing-components
+npm install recma-mdx-escape-missing-components
 ```
 
 or
 
 ```bash
-yarn add recma-escape-missing-components
+yarn add recma-mdx-escape-missing-components
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ And our module, `example.js`, looks as follows:
 ```javascript
 import { read } from "to-vfile";
 import { compile } from "@mdx-js/mdx";
-import recmaEscapeMissingComponents from "recma-escape-missing-components";
+import recmaMdxEscapeMissingComponents from "recma-mdx-escape-missing-components";
 
 main();
 
@@ -54,7 +54,7 @@ async function main() {
   const source = await read("example.mdx");
 
   const compiledSource = await compile(source, {
-    recmaPlugins: [recmaEscapeMissingComponents],
+    recmaPlugins: [recmaMdxEscapeMissingComponents],
   });
 
   return String(compiledSource);
@@ -72,7 +72,7 @@ function _createMdxContent(props) {
 }
 ```
 
-Without the `recma-escape-missing-components`, you’d not get any Empty Component definition and default value for the components:
+Without the `recma-mdx-escape-missing-components`, you’d not get any Empty Component definition and default value for the components:
 
 ```js
 function _createMdxContent(props) {
@@ -82,7 +82,7 @@ function _createMdxContent(props) {
 }
 ```
 
-Basically, the `recma-escape-missing-components`;
+Basically, the `recma-mdx-escape-missing-components`;
 
 **inserts the Empty Component definition into the code above the function `_createMdxContent(props){}`**
 
@@ -101,7 +101,7 @@ Basically, the `recma-escape-missing-components`;
 ```typescript
 type TestFunction = (componentName: string) => boolean | undefined | null;
 
-function RecmaEscapeMissingComponents(test?: string | string[] | TestFunction)
+function recmaMdxEscapeMissingComponents(test?: string | string[] | TestFunction)
 ```
 
 #### `test`
@@ -126,7 +126,7 @@ Wellcome
 #### Without the `test` option
 
 ```javascript
-use(RecmaEscapeMissingComponents);
+use(recmaMdxEscapeMissingComponents);
 ```
 
 is going to produce the compiled source has the statement for all components have the default value:
@@ -136,7 +136,7 @@ is going to produce the compiled source has the statement for all components hav
 #### With the `test` option (string)
 
 ```javascript
-use(RecmaEscapeMissingComponents, "Component1");
+use(recmaMdxEscapeMissingComponents, "Component1");
 ```
 
 is going to produce the compiled source has the statement for only the `Component1` has the default value:
@@ -146,7 +146,7 @@ is going to produce the compiled source has the statement for only the `Componen
 #### With the `test` option (string array)
 
 ```javascript
-use(RecmaEscapeMissingComponents, ["Component1"]);
+use(recmaMdxEscapeMissingComponents, ["Component1"]);
 ```
 is going to produce the compiled source has the statement for only the `Component1` has the default value:
 
@@ -155,7 +155,7 @@ is going to produce the compiled source has the statement for only the `Componen
 #### With the `test` option (function)
 
 ```javascript
-use(RecmaEscapeMissingComponents, ((name) => name.endsWith("2")) as TestFunction);
+use(recmaMdxEscapeMissingComponents, ((name) => name.endsWith("2")) as TestFunction);
 ```
 is going to produce the compiled source has the statement for only the `Component2` has the default value:
 
@@ -175,7 +175,7 @@ This plugin works with unified version 6+ and estree version 2+. **It is compati
 
 ## Security
 
-Use of `recma-escape-missing-components` does not involve user content so there are no openings for cross-site scripting (XSS) attacks.
+Use of `recma-mdx-escape-missing-components` does not involve user content so there are no openings for cross-site scripting (XSS) attacks.
 
 ## License
 
@@ -195,13 +195,13 @@ Use of `recma-escape-missing-components` does not involve user content so there 
 [MDX]: https://mdxjs.com/
 [MDXnpm]: https://www.npmjs.com/search?q=keywords:mdx
 [typescript]: https://www.typescriptlang.org/
-[license]: https://github.com/ipikuka/recma-escape-missing-components/blob/main/LICENSE
+[license]: https://github.com/ipikuka/recma-mdx-escape-missing-components/blob/main/LICENSE
 [markdownnpm]: https://www.npmjs.com/search?q=keywords:markdown
 [recmaEMCnpm]: https://www.npmjs.com/search?q=keywords:recma%20custom%20escape%20missing%20components
-[npm-url]: https://www.npmjs.com/package/recma-escape-missing-components
-[npm-image]: https://img.shields.io/npm/v/recma-escape-missing-components
-[github-license]: https://img.shields.io/github/license/ipikuka/recma-escape-missing-components
-[github-license-url]: https://github.com/ipikuka/recma-escape-missing-components/blob/master/LICENSE
-[github-build]: https://github.com/ipikuka/recma-escape-missing-components/actions/workflows/publish.yml/badge.svg
-[github-build-url]: https://github.com/ipikuka/recma-escape-missing-components/actions/workflows/publish.yml
-[npm-typescript]: https://img.shields.io/npm/types/recma-escape-missing-components
+[npm-url]: https://www.npmjs.com/package/recma-mdx-escape-missing-components
+[npm-image]: https://img.shields.io/npm/v/recma-mdx-escape-missing-components
+[github-license]: https://img.shields.io/github/license/ipikuka/recma-mdx-escape-missing-components
+[github-license-url]: https://github.com/ipikuka/recma-mdx-escape-missing-components/blob/master/LICENSE
+[github-build]: https://github.com/ipikuka/recma-mdx-escape-missing-components/actions/workflows/publish.yml/badge.svg
+[github-build-url]: https://github.com/ipikuka/recma-mdx-escape-missing-components/actions/workflows/publish.yml
+[npm-typescript]: https://img.shields.io/npm/types/recma-mdx-escape-missing-components
