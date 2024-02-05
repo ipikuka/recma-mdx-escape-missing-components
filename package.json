@@ -1,5 +1,5 @@
 {
-  "name": "recma-escape-missing-components",
+  "name": "recma-mdx-escape-missing-components",
   "version": "1.0.2",
   "description": "Recma plugin to set the default value `() => null` for the Components in MDX in case of missing or not provided.",
   "type": "module",
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ipikuka/recma-escape-missing-components.git"
+    "url": "git+https://github.com/ipikuka/recma-mdx-escape-missing-components.git"
   },
   "keywords": [
     "unified",
@@ -34,15 +34,15 @@
     "mdxjs",
     "recma",
     "recma-plugin",
-    "recma-escape",
-    "recma-escape-components",
-    "recma-escape-missing-components"
+    "recma-mdx",
+    "escape missing components",
+    "recma-mdx-escape-missing-components"
   ],
   "author": "ipikuka <talatkuyuk@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/ipikuka/recma-escape-missing-components#readme",
+  "homepage": "https://github.com/ipikuka/recma-mdx-escape-missing-components#readme",
   "bugs": {
-    "url": "https://github.com/ipikuka/recma-escape-missing-components/issues"
+    "url": "https://github.com/ipikuka/recma-mdx-escape-missing-components/issues"
   },
   "devDependencies": {
     "@mdx-js/mdx": "^3.0.0",

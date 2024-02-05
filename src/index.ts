@@ -54,7 +54,7 @@ function statementOfEmptyComponent(): VariableDeclaration {
  * This recma plugin sets the default value `() => null` for the Components in case them missing or not provided.
  * in order "eval of the MDX compiled source" NOT to throw an error.
  *
- * The "recma-escape-missing-components" basically:
+ * The "recma-mdx-escape-missing-components" basically:
  *
  * inserts the Empty Component definition into code
  *
@@ -75,7 +75,9 @@ function statementOfEmptyComponent(): VariableDeclaration {
  * if "TestFunction", check the test function returns true.
  * if check is true/pass, set the default value `() => null` for that component
  */
-export default function RecmaEscapeMissingComponents(test?: string | string[] | TestFunction) {
+export default function recmaMdxEscapeMissingComponents(
+  test?: string | string[] | TestFunction,
+) {
   return (tree: Node) => {
     // inserts the Empty Component definition statement above the function _createMdxContent(props){}
     visit(tree, (node, key, index, ancestors) => {
