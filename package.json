@@ -52,6 +52,7 @@
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "dedent": "^0.7.0",
+    "esast-util-from-js": "^2.0.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.2",
@@ -64,7 +65,7 @@
     "unified": "^11.0.4"
   },
   "dependencies": {
-    "@types/estree": "^1.0.0",
+    "@types/estree": "^1.0.5",
     "estree-util-visit": "^2.0.0"
   },
   "sideEffects": false
