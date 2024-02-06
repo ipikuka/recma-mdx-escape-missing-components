@@ -1,7 +1,52 @@
 import { compile } from "@mdx-js/mdx";
+import { visit } from "estree-util-visit";
+import { fromJs } from "esast-util-from-js";
 import dedent from "dedent";
 
 import recmaMdxEscapeMissingComponents, { type TestFunction } from "../src";
+
+describe("compose the Empty Component statement", () => {
+  // ******************************************
+  it("checks the statement", async () => {
+    const compiledSource = dedent`
+      const _EmptyComponent = () => null;
+    `;
+
+    const estree = fromJs(compiledSource);
+
+    visit(estree, function (node) {
+      delete (node as any).position;
+    });
+
+    expect(estree.body[0]).toMatchInlineSnapshot(`
+      {
+        "declarations": [
+          {
+            "id": {
+              "name": "_EmptyComponent",
+              "type": "Identifier",
+            },
+            "init": {
+              "async": false,
+              "body": {
+                "type": "Literal",
+                "value": null,
+              },
+              "expression": true,
+              "generator": false,
+              "id": null,
+              "params": [],
+              "type": "ArrowFunctionExpression",
+            },
+            "type": "VariableDeclarator",
+          },
+        ],
+        "kind": "const",
+        "type": "VariableDeclaration",
+      }
+    `);
+  });
+});
 
 describe("without the plugin", () => {
   // ******************************************
