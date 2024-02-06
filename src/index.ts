@@ -1,5 +1,5 @@
 import { CONTINUE, EXIT, SKIP, visit } from "estree-util-visit";
-import type { Node, VariableDeclaration } from "estree";
+import type { Identifier, Node, VariableDeclaration } from "estree";
 
 export type TestFunction = (componentName: string) => boolean | undefined | null;
 
@@ -80,14 +80,14 @@ export default function recmaMdxEscapeMissingComponents(
 ) {
   return (tree: Node) => {
     // inserts the Empty Component definition statement above the function _createMdxContent(props){}
-    visit(tree, (node, key, index, ancestors) => {
+    visit(tree, (node, _, index, ancestors) => {
       if (!index) return;
 
       if (ancestors.length !== 1) return SKIP;
 
       if (node.type !== "FunctionDeclaration") return SKIP;
 
-      if (node.id?.name !== "_createMdxContent") return SKIP;
+      if (node.id.name !== "_createMdxContent") return SKIP;
 
       if (tree.type === "Program") {
         tree["body"].splice(index, 0, statementOfEmptyComponent());
@@ -99,50 +99,50 @@ export default function recmaMdxEscapeMissingComponents(
     });
 
     // adds default value for the components
-    visit(tree, function (node) {
+    visit(tree, (node) => {
       if (node.type !== "VariableDeclarator") return CONTINUE;
 
+      // we are looking for the "_components" identifier as initiator
+      if ((node.init as Identifier)?.name !== "_components") return SKIP;
+
+      // we are looking for the "const {a, b} = _components" object pattern
       if (node.id.type !== "ObjectPattern") return CONTINUE;
 
-      // we are looking for the "_components" identifier is destructed in the code
-      if (node.init?.type === "Identifier" && node.init?.name === "_components") {
-        node.id.properties.forEach((property) => {
-          if (property.type === "RestElement") return CONTINUE;
+      node.id.properties.forEach((property) => {
+        if (property.type === "RestElement") return CONTINUE;
 
-          /**
-           *
-           * now we ensure here: Variable Declaration and Assignment in ObjectPattern
-           *
-           * const { Component1, Component2 } = _components;
-           *          Property    Property
-           *
-           */
+        /**
+         * Assignment in Object Pattern which is not any spread operator
+         *
+         * const { Component1, Component2 } = _components;
+         *          Property    Property
+         */
 
-          if (
-            // ensures that there is no default value
-            property.key.type === "Identifier" &&
-            property.value.type === "Identifier"
-          ) {
-            const componentName = property.key.name;
+        if (
+          // ensures that there is no default value
+          property.key.type === "Identifier" &&
+          property.value.type === "Identifier" &&
+          property.key.name === property.value.name
+        ) {
+          const componentName = property.key.name;
 
-            if (passTest(test, componentName)) {
-              property.value = {
-                type: "AssignmentPattern",
-                left: {
-                  type: "Identifier",
-                  name: componentName,
-                },
-                right: {
-                  type: "Identifier",
-                  name: "_EmptyComponent",
-                },
-              };
-            }
+          if (passTest(test, componentName)) {
+            property.value = {
+              type: "AssignmentPattern",
+              left: {
+                type: "Identifier",
+                name: componentName,
+              },
+              right: {
+                type: "Identifier",
+                name: "_EmptyComponent",
+              },
+            };
           }
+        }
 
-          return CONTINUE;
-        });
-      }
+        return CONTINUE;
+      });
 
       return CONTINUE;
     });
