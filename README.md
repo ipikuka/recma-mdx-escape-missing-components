@@ -66,9 +66,9 @@ Now, running `node example.js` produces the `compiled source` which contains the
 ```js
 const _EmptyComponent = () => null;
 function _createMdxContent(props) {
-  ...
+  // ...
   const {Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;
-  ...
+  // ...
 }
 ```
 
@@ -76,9 +76,9 @@ Without the `recma-mdx-escape-missing-components`, you’d not get any Empty Com
 
 ```js
 function _createMdxContent(props) {
-  ...
+  // ...
   const {Component1, Component2} = _components;
-  ...
+  // ...
 }
 ```
 
@@ -176,6 +176,13 @@ This plugin works with unified version 6+ and estree version 2+. **It is compati
 ## Security
 
 Use of `recma-mdx-escape-missing-components` does not involve user content so there are no openings for cross-site scripting (XSS) attacks.
+
+## My Recma Plugins
+
++ [`recma-mdx-escape-missing-components`](https://www.npmjs.com/package/recma-mdx-escape-missing-components)
+  – Recma plugin to set the default value `() => null` for the Components in MDX in case of missing or not provided
++ [`recma-mdx-change-props`](https://www.npmjs.com/package/recma-mdx-change-props)
+  – Recma plugin to change the 'props' parameter into '_props' in the function '_createMdxContent' in the compiled source in order to be able to use {props.foo} like expressions. It is useful for the `next-mdx-remote` or `next-mdx-remote-client` users in `nextjs` applications.
 
 ## License
 
