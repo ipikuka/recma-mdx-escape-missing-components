@@ -79,7 +79,7 @@ export default function recmaMdxEscapeMissingComponents(
   test?: string | string[] | TestFunction,
 ) {
   return (tree: Node) => {
-    // inserts the Empty Component definition statement above the function _createMdxContent(props){}
+    // inserts the Empty Component definition statement above the first function
     visit(tree, (node, _, index, ancestors) => {
       if (!index) return;
 
@@ -87,7 +87,8 @@ export default function recmaMdxEscapeMissingComponents(
 
       if (node.type !== "FunctionDeclaration") return SKIP;
 
-      if (node.id.name !== "_createMdxContent") return SKIP;
+      // commented out because the first function is always "_createMdxContent"
+      // if (node.id.name !== "_createMdxContent") return SKIP;
 
       if (tree.type === "Program") {
         tree["body"].splice(index, 0, statementOfEmptyComponent());
@@ -95,6 +96,7 @@ export default function recmaMdxEscapeMissingComponents(
         return EXIT;
       }
 
+      /* istanbul ignore next */
       return CONTINUE;
     });
 
@@ -106,9 +108,11 @@ export default function recmaMdxEscapeMissingComponents(
       if ((node.init as Identifier)?.name !== "_components") return SKIP;
 
       // we are looking for the "const {a, b} = _components" object pattern
+      /* istanbul ignore next */ // ignore because it is always "ObjectPattern"; keep for type narrowing
       if (node.id.type !== "ObjectPattern") return CONTINUE;
 
       node.id.properties.forEach((property) => {
+        /* istanbul ignore next */ // ignore because there is no "RestElement"; keep for type narrowing
         if (property.type === "RestElement") return CONTINUE;
 
         /**

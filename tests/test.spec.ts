@@ -90,11 +90,32 @@ describe("with the plugin (no option)", () => {
       "{Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;",
     );
   });
+
+  // ******************************************
+  it("in outputFormat function-body", async () => {
+    const source = dedent`
+      import {a} from "./file.js"
+
+      Hi <Test />
+
+      export const x = 5;
+    `;
+
+    const compiledSource = await compile(source, {
+      providerImportSource: "#",
+      outputFormat: "function-body",
+      recmaPlugins: [recmaMdxEscapeMissingComponents],
+    });
+
+    expect(String(compiledSource)).toContain("const _EmptyComponent = () => null;");
+
+    expect(String(compiledSource)).toContain("{Test = _EmptyComponent} = _components;");
+  });
 });
 
 describe("with the plugin (has `test` option)", () => {
   // ******************************************
-  it("sets the default value '() => null' for the component passes the test (string)", async () => {
+  it("sets the default value '() => null' for the components pass the test (string)", async () => {
     const source = dedent`
       # Hi.
       

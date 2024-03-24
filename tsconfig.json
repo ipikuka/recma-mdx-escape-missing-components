@@ -10,7 +10,7 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "dist/esm",
-    "noImplicitReturns": true,
+    "noImplicitReturns": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"]
 }
