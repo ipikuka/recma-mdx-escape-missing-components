@@ -7,14 +7,14 @@
   "main": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "npm run prebuild && tsc",
-    "lint": "eslint .",
+    "build": "rimraf dist && tsc --build && type-coverage",
+    "format": "npm run prettier && npm run lint",
     "prettier": "prettier --write .",
+    "lint": "eslint .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --config ./jest.config.cjs",
     "test:file": "NODE_OPTIONS=--experimental-vm-modules jest --config ./jest.config.cjs test.spec.ts",
     "prepack": "npm run build",
-    "prepublishOnly": "npm test && npm run prettier && npm run lint"
+    "prepublishOnly": "npm test && npm run format"
   },
   "files": [
     "dist/",
@@ -61,6 +61,7 @@
     "prettier-2": "npm:prettier@^2.8.8",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
+    "type-coverage": "^2.27.1",
     "typescript": "^5.4.3",
     "unified": "^11.0.4"
   },
@@ -68,5 +69,12 @@
     "@types/estree": "^1.0.5",
     "estree-util-visit": "^2.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "ignoreAsAssertion": true,
+    "ignoreCatch": true,
+    "strict": true
+  }
 }
