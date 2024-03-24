@@ -10,11 +10,13 @@
 
 This package is a [unified][unified] ([recma][recma]) plugin to provide an opportunity for escaping mdx components which are missing or not provided in a MDX document.
 
-**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[recma][recma]** adds support for producing a javascript code by transforming the **[esast][esast]** which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
+**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[recma][recma]** adds support for producing a javascript code by transforming **[esast][esast]** which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
 
 ## When should I use this?
 
-**This plugin is useful if you want to escape the mdx components you did not provide in MDX.** You don't receive an error for missing or not provided mdx components since the `recma-mdx-escape-missing-components` sets the default value `() => null` for the mdx components.
+**This plugin is useful if you want to escape mdx components you did not provide in MDX.** 
+
+You are not going to receive an error for missing or not provided mdx components since the `recma-mdx-escape-missing-components` sets the default value **`() => null`** for the mdx components.
 
 ## Installation
 
@@ -65,6 +67,7 @@ async function main() {
 Now, running `node example.js` produces the `compiled source` which contains the statement below:
 
 ```js
+// ...
 const _EmptyComponent = () => null;
 function _createMdxContent(props) {
   // ...
@@ -76,6 +79,7 @@ function _createMdxContent(props) {
 Without the `recma-mdx-escape-missing-components`, you’d not get any Empty Component definition and default value for the components:
 
 ```js
+// ...
 function _createMdxContent(props) {
   // ...
   const {Component1, Component2} = _components;
@@ -85,15 +89,15 @@ function _createMdxContent(props) {
 
 Basically, the `recma-mdx-escape-missing-components`;
 
-**inserts the Empty Component definition into the code above the function `_createMdxContent(props){}`**
+🟩 **inserts an Empty Component definition into the code above the function `_createMdxContent(props){}`**
 
 `const _EmptyComponent = () => null;`
 
-**looks for a declaration statement in an object pattern initiated by the `_components`**
+🟩 **looks for a declaration statement in an object pattern initiated by the `_components`**
 
 `const {Component1, Component2} = _components;`
 
-**converts it as the destructed properties (Components) having a default value `_EmptyComponent`**
+🟩 **converts it as the destructed components have a default value `_EmptyComponent`**
 
 `const {Component1 = _EmptyComponent, Component2 = _EmptyComponent} = _components;`
 
@@ -230,6 +234,7 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 [recma]: https://mdxjs.com/docs/extending-mdx/#list-of-plugins
 [esast]: https://github.com/syntax-tree/esast
 [MDX]: https://mdxjs.com/
+[micromark]: https://github.com/micromark/micromark
 [typescript]: https://www.typescriptlang.org/
 
 [badge-npm-version]: https://img.shields.io/npm/v/recma-mdx-escape-missing-components
