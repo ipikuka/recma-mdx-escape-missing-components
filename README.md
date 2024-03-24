@@ -4,6 +4,8 @@
 [![Build][github-build]][github-build-url]
 ![npm-typescript]
 [![License][github-license]][github-license-url]
+[![codecov](https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components/graph/badge.svg?token=F89TVSB5MU)](https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components)
+[![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frecma-mdx-escape-missing-components%2Fmaster%2Fpackage.json)](https://github.com/ipikuka/recma-mdx-escape-missing-components)
 
 This package provides escaping the components in the MDX, which are missing or not provided.
 
