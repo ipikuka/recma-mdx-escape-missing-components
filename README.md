@@ -221,14 +221,14 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 ### Keywords
 
-🟩 [unified][unifiednpm] 🟩 [recma][recmanpm] 🟩 [recma plugin][recmapluginnpm] 🟩 [esast][esastnpm] 🟩 [MDX][MDXnpm] 🟩 [recma escape missing components][recmamissingcomponentnpm]
+🟩 [unified][unifiednpm] 🟩 [recma][recmanpm] 🟩 [recma plugin][recmapluginnpm] 🟩 [esast][esastnpm] 🟩 [MDX][MDXnpm] 🟩 [recma mdx][recmamdxnpm]
 
 [unifiednpm]: https://www.npmjs.com/search?q=keywords:unified
 [recmanpm]: https://www.npmjs.com/search?q=keywords:recma
 [recmapluginnpm]: https://www.npmjs.com/search?q=keywords:recma%20plugin
 [esastnpm]: https://www.npmjs.com/search?q=keywords:esast
 [MDXnpm]: https://www.npmjs.com/search?q=keywords:mdx
-[recmamissingcomponentnpm]: https://www.npmjs.com/search?q=keywords:recma%20escape%20missing%20components
+[recmamdxnpm]: https://www.npmjs.com/search?q=keywords:recma%20mdx
 
 [unified]: https://github.com/unifiedjs/unified
 [recma]: https://mdxjs.com/docs/extending-mdx/#list-of-plugins
