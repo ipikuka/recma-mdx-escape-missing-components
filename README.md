@@ -1,26 +1,26 @@
 # recma-mdx-escape-missing-components
 
-[![NPM version][badge-npm-version]][npm-package-url]
-[![NPM downloads][badge-npm-download]][npm-package-url]
-[![Build][badge-build]][github-workflow-url]
-[![codecov](https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components/graph/badge.svg?token=F89TVSB5MU)](https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components)
-[![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frecma-mdx-escape-missing-components%2Fmaster%2Fpackage.json)](https://github.com/ipikuka/recma-mdx-escape-missing-components)
-[![typescript][badge-typescript]][typescript-url]
-[![License][badge-license]][github-license-url]
+[![npm version][badge-npm-version]][url-npm-package]
+[![npm downloads][badge-npm-download]][url-npm-package]
+[![publish to npm][badge-publish-to-npm]][url-publish-github-actions]
+[![code-coverage][badge-codecov]][url-codecov]
+[![type-coverage][badge-type-coverage]][url-github-package]
+[![typescript][badge-typescript]][url-typescript]
+[![license][badge-license]][url-license]
 
-This package is a [unified][unified] ([recma][recma]) plugin to provide an opportunity for escaping mdx components which are missing or not provided in a MDX document.
+This package is a **[unified][unified]** (**[recma][recma]**) plugin **which allows you to escape MDX components that are either missing or not provided in an MDX document.**
 
 **[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[recma][recma]** adds support for producing a javascript code by transforming **[esast][esast]** which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
 
 ## When should I use this?
 
-**This plugin is useful if you want to escape mdx components you did not provide in MDX.** 
+**This plugin is useful for escaping MDX components that are missing or not explicitly provided in your MDX document.** 
 
-You are not going to receive an error for missing or not provided mdx components since the `recma-mdx-escape-missing-components` sets the default value **`() => null`** for the mdx components.
+You won’t encounter errors for missing or undefined MDX components because `recma-mdx-escape-missing-components` assigns a default value of **`() => null`** for them.
 
 ## Installation
 
-This package is suitable for ESM only. In Node.js (version 16+), install with npm:
+This package is suitable for ESM only. In Node.js (version 18+), install with npm:
 
 ```bash
 npm install recma-mdx-escape-missing-components
@@ -172,7 +172,7 @@ This plugin only modifies the ESAST (Ecma Script Abstract Syntax Tree) as explai
 
 ## Types
 
-This package is fully typed with [TypeScript][typescript]. Test function in the option is exported as type `TestFunction`.
+This package is fully typed with [TypeScript][url-typescript]. Test function in the option is exported as type `TestFunction`.
 
 ## Compatibility
 
@@ -207,6 +207,8 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 - [`rehype-pre-language`](https://www.npmjs.com/package/rehype-pre-language)
   – Rehype plugin to add language information as a property to `pre` element
+- [`rehype-highlight-code-lines`](https://www.npmjs.com/package/rehype-highlight-code-lines)
+  – Rehype plugin to add line numbers to code blocks and allow highlighting of desired code lines
 
 ### My Recma Plugins
 
@@ -219,33 +221,26 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 [MIT License](./LICENSE) © ipikuka
 
-### Keywords
-
-🟩 [unified][unifiednpm] 🟩 [recma][recmanpm] 🟩 [recma plugin][recmapluginnpm] 🟩 [esast][esastnpm] 🟩 [MDX][MDXnpm] 🟩 [recma mdx][recmamdxnpm]
-
-[unifiednpm]: https://www.npmjs.com/search?q=keywords:unified
-[recmanpm]: https://www.npmjs.com/search?q=keywords:recma
-[recmapluginnpm]: https://www.npmjs.com/search?q=keywords:recma%20plugin
-[esastnpm]: https://www.npmjs.com/search?q=keywords:esast
-[MDXnpm]: https://www.npmjs.com/search?q=keywords:mdx
-[recmamdxnpm]: https://www.npmjs.com/search?q=keywords:recma%20mdx
-
 [unified]: https://github.com/unifiedjs/unified
+[micromark]: https://github.com/micromark/micromark
 [recma]: https://mdxjs.com/docs/extending-mdx/#list-of-plugins
 [esast]: https://github.com/syntax-tree/esast
+[estree]: https://github.com/estree/estree
 [MDX]: https://mdxjs.com/
-[micromark]: https://github.com/micromark/micromark
-[typescript]: https://www.typescriptlang.org/
 
 [badge-npm-version]: https://img.shields.io/npm/v/recma-mdx-escape-missing-components
 [badge-npm-download]:https://img.shields.io/npm/dt/recma-mdx-escape-missing-components
-[npm-package-url]: https://www.npmjs.com/package/recma-mdx-escape-missing-components
+[url-npm-package]: https://www.npmjs.com/package/recma-mdx-escape-missing-components
+[url-github-package]: https://github.com/ipikuka/recma-mdx-escape-missing-components
 
 [badge-license]: https://img.shields.io/github/license/ipikuka/recma-mdx-escape-missing-components
-[github-license-url]: https://github.com/ipikuka/recma-mdx-escape-missing-components/blob/main/LICENSE
+[url-license]: https://github.com/ipikuka/recma-mdx-escape-missing-components/blob/main/LICENSE
 
-[badge-build]: https://github.com/ipikuka/recma-mdx-escape-missing-components/actions/workflows/publish.yml/badge.svg
-[github-workflow-url]: https://github.com/ipikuka/recma-mdx-escape-missing-components/actions/workflows/publish.yml
+[badge-publish-to-npm]: https://github.com/ipikuka/recma-mdx-escape-missing-components/actions/workflows/publish.yml/badge.svg
+[url-publish-github-actions]: https://github.com/ipikuka/recma-mdx-escape-missing-components/actions/workflows/publish.yml
 
 [badge-typescript]: https://img.shields.io/npm/types/recma-mdx-escape-missing-components
-[typescript-url]: https://www.typescriptlang.org/
+[url-typescript]: https://www.typescriptlang.org/
+
+[badge-codecov]: https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components/graph/badge.svg?token=F89TVSB5MU
+[url-codecov]: https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components
