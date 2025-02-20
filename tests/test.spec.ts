@@ -15,6 +15,7 @@ describe("compose the Empty Component statement", () => {
     const estree = fromJs(compiledSource);
 
     visit(estree, function (node) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       delete (node as any).position;
     });
 
