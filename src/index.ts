@@ -1,5 +1,6 @@
+import type { Plugin } from "unified";
+import type { Identifier, Node, Program, VariableDeclaration } from "estree";
 import { CONTINUE, EXIT, SKIP, visit } from "estree-util-visit";
-import type { Identifier, Node, VariableDeclaration } from "estree";
 
 export type TestFunction = (componentName: string) => boolean | undefined | null;
 
@@ -68,16 +69,16 @@ function statementOfEmptyComponent(): VariableDeclaration {
  *
  * const { Component1 = _EmptyComponent, Component2 = _EmptyComponent } = _components;
  *
- * @param [test]
+ * [test]
  * if "undefined", all components pass the check
- * if "string", check the component name matches with the string
- * if "string[]", check the component name is included in the string array
- * if "TestFunction", check the test function returns true.
- * if check is true/pass, set the default value `() => null` for that component
+ * if "string", check if the component name matches with the string
+ * if "string[]", check if the component name is included in the string array
+ * if "TestFunction", check if the test function returns true.
+ *
+ * if check is true meaningly passed, set the default value `() => null` for that component
+ *
  */
-export default function recmaMdxEscapeMissingComponents(
-  test?: string | string[] | TestFunction,
-) {
+const plugin: Plugin<[TestFunction?], Program> = (test) => {
   return (tree: Node) => {
     // inserts the Empty Component definition statement above the first function
     visit(tree, (node, _, index, ancestors) => {
@@ -151,4 +152,6 @@ export default function recmaMdxEscapeMissingComponents(
       return CONTINUE;
     });
   };
-}
+};
+
+export default plugin;
