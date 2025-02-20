@@ -32,11 +32,12 @@
     "esast",
     "mdx",
     "mdxjs",
+    "plugin",
     "recma",
-    "recma-plugin",
-    "recma-mdx",
+    "recma plugin",
+    "recma mdx",
     "escape missing components",
-    "recma-mdx-escape-missing-components"
+    "recma mdx escape missing components"
   ],
   "author": "ipikuka <talatkuyuk@gmail.com>",
   "license": "MIT",
