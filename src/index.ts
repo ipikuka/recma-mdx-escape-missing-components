@@ -82,7 +82,7 @@ const plugin: Plugin<[TestFunction?], Program> = (test) => {
   return (tree: Node) => {
     // inserts the Empty Component definition statement above the first function
     visit(tree, (node, _, index, ancestors) => {
-      if (!index) return;
+      if (index === undefined) return;
 
       if (ancestors.length !== 1) return SKIP;
 
