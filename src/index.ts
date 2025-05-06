@@ -84,6 +84,7 @@ const plugin: Plugin<[TestFunction?], Program> = (test) => {
     visit(tree, (node, _, index, ancestors) => {
       if (index === undefined) return;
 
+      /* istanbul ignore next */
       if (ancestors.length !== 1) return SKIP;
 
       if (node.type !== "FunctionDeclaration") return SKIP;
