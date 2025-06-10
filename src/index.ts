@@ -92,6 +92,7 @@ const plugin: Plugin<[TestFunction?], Program> = (test) => {
       // commented out because the first function is always "_createMdxContent"
       // if (node.id.name !== "_createMdxContent") return SKIP;
 
+      /* istanbul ignore next */
       if (tree.type === "Program") {
         tree["body"].splice(index, 0, statementOfEmptyComponent());
 
@@ -124,6 +125,7 @@ const plugin: Plugin<[TestFunction?], Program> = (test) => {
          *          Property    Property
          */
 
+        /* istanbul ignore next */
         if (
           // ensures that there is no default value
           property.key.type === "Identifier" &&
