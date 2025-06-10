@@ -68,7 +68,7 @@
     "unified": "^11.0.5"
   },
   "dependencies": {
-    "@types/estree": "^1.0.7",
+    "@types/estree": "^1.0.8",
     "estree-util-visit": "^2.0.0"
   },
   "peerDependencies": {
