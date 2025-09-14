@@ -10,13 +10,13 @@
 
 This package is a **[unified][unified]** (**[recma][recma]**) plugin **which allows you to escape MDX components that are either missing or not provided in an MDX document.**
 
-**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[recma][recma]** adds support for producing a javascript code by transforming **[esast][esast]** which stands for Ecma Script Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
+**[unified][unified]** is a project that transforms content with abstract syntax trees (ASTs) using the new parser **[micromark][micromark]**. **[recma][recma]** adds support for producing a javascript code by transforming **[esast][esast]** which stands for EcmaScript Abstract Syntax Tree (AST) that is used in production of compiled source for the **[MDX][MDX]**.
 
 ## When should I use this?
 
-**This plugin is useful for escaping MDX components that are missing or not explicitly provided in your MDX document.** 
+**`recma-mdx-escape-missing-components`** is useful for **escaping MDX components that are missing or not explicitly provided in your MDX document.** 
 
-You won’t encounter errors for missing or undefined MDX components because `recma-mdx-escape-missing-components` assigns a default value of **`() => null`** for them.
+You won’t encounter errors for missing or undefined MDX components because **`recma-mdx-escape-missing-components`** assigns a default value of **`() => null`** for them.
 
 ## Installation
 
@@ -76,7 +76,7 @@ function _createMdxContent(props) {
 }
 ```
 
-Without the `recma-mdx-escape-missing-components`, you’d not get any Empty Component definition and default value for the components:
+Without the **`recma-mdx-escape-missing-components`**, you’d not get any Empty Component definition and default value for the components:
 
 ```js
 // ...
@@ -87,7 +87,7 @@ function _createMdxContent(props) {
 }
 ```
 
-Basically, the `recma-mdx-escape-missing-components`;
+Basically, the **`recma-mdx-escape-missing-components`**;
 
 🟩 **inserts an Empty Component definition into the code above the function `_createMdxContent(props){}`**
 
@@ -180,7 +180,7 @@ This plugin works with `unified` version 6+. It is compatible with `mdx` version
 
 ## Security
 
-Use of `recma-mdx-escape-missing-components` doesn't involve user content so there are no openings for cross-site scripting (XSS) attacks.
+Use of **`recma-mdx-escape-missing-components`** doesn't involve user content so there are no openings for cross-site scripting (XSS) attacks.
 
 ## My Plugins
 
