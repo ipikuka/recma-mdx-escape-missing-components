@@ -84,7 +84,7 @@ function _createMdxContent(props) {
 }
 ```
 
-Without the **`recma-mdx-escape-missing-components`**, you’d not get any Empty Component definition and default value for the components:
+Without **`recma-mdx-escape-missing-components`**, you’d not get any Empty Component definition and default value for the components:
 
 ```js
 // ...
@@ -95,7 +95,7 @@ function _createMdxContent(props) {
 }
 ```
 
-Basically, the **`recma-mdx-escape-missing-components`**;
+Basically, **`recma-mdx-escape-missing-components`**;
 
 🟩 **inserts an Empty Component definition into the code above the function `_createMdxContent(props){}`**
 
@@ -266,3 +266,5 @@ I like to contribute the Unified / Remark / MDX ecosystem, so I recommend you to
 
 [badge-codecov]: https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components/graph/badge.svg?token=F89TVSB5MU
 [url-codecov]: https://codecov.io/gh/ipikuka/recma-mdx-escape-missing-components
+
+[badge-type-coverage]: https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fipikuka%2Frecma-mdx-escape-missing-components%2Fmaster%2Fpackage.json
