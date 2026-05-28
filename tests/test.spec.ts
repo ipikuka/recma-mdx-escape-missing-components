@@ -3,7 +3,7 @@ import { visit } from "estree-util-visit";
 import { fromJs } from "esast-util-from-js";
 import dedent from "dedent";
 
-import recmaMdxEscapeMissingComponents, { type TestFunction } from "../src";
+import recmaMdxEscapeMissingComponents, { type TestFunction } from "../src/index.js";
 
 describe("compose the Empty Component statement", () => {
   // ******************************************
@@ -175,7 +175,10 @@ describe("with the plugin (has `test` option)", () => {
 
     const compiledSource = await compile(source, {
       recmaPlugins: [
-        [recmaMdxEscapeMissingComponents, ((name) => name.endsWith("2")) as TestFunction],
+        [
+          recmaMdxEscapeMissingComponents,
+          ((name: string) => name.endsWith("2")) as TestFunction,
+        ],
       ],
     });
 
